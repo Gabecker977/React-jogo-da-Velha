@@ -1,0 +1,184 @@
+/* https://coolors.co/palette/001219-005f73-0a9396-94d2bd-e9d8a6-ee9b00-ca6702-bb3e03-ae2012-9b2226 */
+:root {
+    --rich-black-fogra-29: #001219ff;
+    --blue-sapphire: #005f73ff;
+    --viridian-green: #0a9396ff;
+    --middle-blue-green: #94d2bdff;
+    --medium-champagne: #e9d8a6ff;
+    --gamboge: #ee9b00ff;
+    --alloy-orange: #ca6702ff;
+    --rust: #bb3e03ff;
+    --rufous: #ae2012ff;
+    --ruby-red: #9b2226ff;
+  }
+  body {
+    background-color: var(--medium-champagne);
+  }
+  .jogo {
+    /* Fonte sem serifa */
+    font-family: "Roboto", sans-serif;
+    /* Centralizar na página */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .placar {
+    /* Centralizar o texto do placar acima do tabuleiro */
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+  
+  .placar.vencedor {
+    /* Destacar o texto do placar quando houver um vencedor */
+    color: var(--gamboge);
+    text-shadow: var(--gamboge) 0 0 3px;
+    font-weight: bold;
+  }
+  
+  .tabuleiro {
+    /* Tamanho do tabuleiro */
+    width: clamp(20rem, 50vw, 40rem);
+    height: clamp(20rem, 50vw, 40rem);
+  
+    /* Mostrar células em um grid 3x3 */
+    display: grid;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+  
+    /* Borda exterior */
+    border: none;
+  }
+  
+  .celula {
+    /* Centralizar o texto da célula */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Tamanho da fonte na célula */
+    font-size: 4rem;
+    /* Cursor de "mãozinha" */
+    cursor: pointer;
+  
+    background-color: var(--medium-champagne);
+  }
+  
+  .celula:nth-child(3n-1) {
+    /* Borda vertical */
+    border-left: 2px solid var(--rich-black-fogra-29);
+    border-right: 2px solid var(--rich-black-fogra-29);
+  }
+  
+  .celula:nth-child(n + 4):nth-child(-n + 6) {
+    /* Borda horizontal */
+    border-top: 2px solid var(--rich-black-fogra-29);
+    border-bottom: 2px solid var(--rich-black-fogra-29);
+  }
+  
+  .celula.xiszinho,
+  .celula.bolinha {
+    /* Desabilitar o cursor de "mãozinha" se a celula estiver preenchida */
+    cursor: not-allowed;
+  }
+  
+  .bolinha {
+    /* Mudar cor dos elementos com a classe do jogador bolinha */
+    color: var(--ruby-red);
+  }
+  
+  .xiszinho {
+    /* Mudar cor dos elementos com a classe do jogador xiszinho */
+    color: var(--blue-sapphire);
+  }
+  
+  .celula.vitoria {
+    /* Destacar a celula vitoriosa */
+    color: var(--gamboge);
+    text-shadow: var(--gamboge) 3px 3px 5px;
+  }
+  
+  .jogo.encerrado .celula {
+    /* Desabilitar o cursor de "mãozinha" se o jogo estiver encerrado */
+    cursor: not-allowed;
+  }
+  
+  .jogo.encerrado .celula:not(.vitoria) span {
+    /* Diminuir visibilidade do texto das celulas que não são vitoriosas */
+    color: var(--rich-black-fogra-29);
+    opacity: 0.3;
+  }
+  
+  .controles {
+    /* Botões de controle do jogo */
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
+  
+  .botao {
+    /* Estilo padrão dos botões */
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.5) 2px 2px 10px;
+  }
+  
+  /* Personalização dos botões */
+  .botao.voltar {
+    background-color: var(--ruby-red);
+    color: #fff;
+  }
+  
+  .botao.voltar:hover {
+    background-color: var(--rufous);
+  }
+  
+  .botao.reiniciar {
+    background-color: var(--blue-sapphire);
+    color: #fff;
+  }
+  
+  .botao.reiniciar:hover {
+    background-color: var(--viridian-green);
+  }
+  
+  /* Animação */
+  
+  @keyframes girar {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(360deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+  
+  .celula.vitoria span {
+    animation: girar 1s ease-in-out;
+  }
+  
+  @keyframes pulsar {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  
+  .jogo:not(.encerrado) .celula.bolinha span,
+  .jogo:not(.encerrado) .celula.xiszinho span {
+    animation: pulsar 0.5s ease-in-out;
+  }
